@@ -12,6 +12,7 @@ namespace Pacman
             using (var window = new RenderWindow(new VideoMode(828, 900), "Pacman"))
             {
                 window.Closed += (o, e) => window.Close();
+                window.SetView(new View(new FloatRect(18, 0, 414, 450)));
 
                 //Initialize
                 Clock clock = new Clock();
@@ -23,10 +24,11 @@ namespace Pacman
                     window.DispatchEvents();
                     float deltaTime = clock.Restart().AsSeconds();
 
-                    //Update
+                    scene.UpdateAll(deltaTime);
 
                     window.Clear(new Color(223, 246, 245));
-                    //Draw
+                    
+                    scene.RenderAll(window);
                     window.Display();
                 }
             }

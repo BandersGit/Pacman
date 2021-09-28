@@ -15,7 +15,11 @@ namespace Pacman
 
         public SceneLoader()
         {
-            loaders = new Dictionary<char, Func<Entity>>{{'#', () => new Wall()}};
+            loaders = new Dictionary<char, Func<Entity>>
+            {
+                {'#', () => new Wall()}
+            };
+
         }
 
         public void Load(string scene) => nextScene = scene;
@@ -33,16 +37,19 @@ namespace Pacman
             
             string file = $"assets/{nextScene}.txt";
             Console.WriteLine($"Loading scene '{file}'");
-
+            string[] contents = File.ReadAllLines(file, Encoding.UTF8);
             //Read the file
 
-            foreach (var line in File.ReadLines(file, Encoding.UTF8))
+            for (int i = 0; i < contents.Length; i++)
             {
-                string parsed = line.Trim();
-
-                parsed = parsed.Substring(1, 18);
-
-                if (parsed.Length < 1) continue;
+                for (int j = 0; j < contents[i].Length; j++)
+                {
+                    if (!Create(contents[i][j], out Entity entity)) continue;
+                    
+                    
+                    entity.Position = new Vector2f(j * 18, i * 18);
+                    scene.Spawn(entity);
+                }
             }
 
 

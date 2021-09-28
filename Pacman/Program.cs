@@ -15,6 +15,8 @@ namespace Pacman
 
                 //Initialize
                 Clock clock = new Clock();
+                Scene scene = new Scene();
+                scene.Loader.Load("maze");
 
                 while (window.IsOpen)
                 {

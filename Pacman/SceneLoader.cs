@@ -30,15 +30,10 @@ namespace Pacman
         {
             if (nextScene == "") return;
             scene.Clear();
-
-
-
-
             
             string file = $"assets/{nextScene}.txt";
             Console.WriteLine($"Loading scene '{file}'");
             string[] contents = File.ReadAllLines(file, Encoding.UTF8);
-            //Read the file
 
             for (int i = 0; i < contents.Length; i++)
             {
@@ -46,16 +41,10 @@ namespace Pacman
                 {
                     if (!Create(contents[i][j], out Entity entity)) continue;
                     
-                    
                     entity.Position = new Vector2f(j * 18, i * 18);
                     scene.Spawn(entity);
                 }
             }
-
-
-
-
-
 
             currentScene = nextScene;
             nextScene = "";

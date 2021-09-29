@@ -17,7 +17,11 @@ namespace Pacman
         {
             loaders = new Dictionary<char, Func<Entity>>
             {
-                {'#', () => new Wall()}
+                {'#', () => new Wall()},
+                {'g', () => new Ghost()},
+                {'p', () => new Pacman()},
+                {'.', () => new Coin()},
+                {'c', () => new Candy()}
             };
 
         }
@@ -46,6 +50,9 @@ namespace Pacman
                 }
             }
 
+            GUI gui = new GUI();
+            scene.Spawn(gui);
+            
             currentScene = nextScene;
             nextScene = "";
         }

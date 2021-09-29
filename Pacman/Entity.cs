@@ -25,7 +25,7 @@ namespace Pacman
 
         public virtual FloatRect Bounds => sprite.GetGlobalBounds();
 
-        public virtual bool Solid => Solid;
+        public virtual bool Solid => false;
 
         protected void CollideWith(Scene scene, Entity other)
         {

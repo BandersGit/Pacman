@@ -24,7 +24,5 @@ namespace Pacman
         {
             //Suppress update to not check for collisions
         }
-
-
     }
 }

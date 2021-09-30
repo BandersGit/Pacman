@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
+
 
 namespace Pacman
 {

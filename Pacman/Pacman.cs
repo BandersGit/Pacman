@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using SFML.Graphics;
-using SFML.System;
 using SFML.Window;
 
 namespace Pacman

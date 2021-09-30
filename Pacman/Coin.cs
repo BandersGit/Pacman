@@ -22,7 +22,7 @@ namespace Pacman
         {
             if (e is Pacman)
             {
-                scene.PublishGainScore(100);
+                scene.Events.PublishGainScore(100);
                 this.Dead = true;
             }
         }

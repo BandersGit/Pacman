@@ -56,8 +56,5 @@ namespace Pacman
             target.Draw(sprite);
         }
 
-        
-
-        
     }
 }

@@ -24,10 +24,15 @@ namespace Pacman
             scoreText.DisplayedString = $"Score: {currentScore}";
             scoreText.FillColor = Color.Black;
             currentHealth = maxHealth;
+            scene.Events.LoseHealth += OnLoseHealth;
+            scene.Events.GainScore += OnGainScore;
             base.Create(scene);
+        }
 
-            scene.LoseHealth += OnLoseHealth;
-            scene.GainScore += OnGainScore;
+        public override void Destroy(Scene scene)
+        {
+            scene.Events.LoseHealth -= OnLoseHealth;
+            scene.Events.GainScore -= OnGainScore;
         }
 
         private void OnGainScore(Scene scene, int amount)
@@ -37,7 +42,6 @@ namespace Pacman
 
             if (!scene.FindByType<Coin>(out _))
             {
-                System.Console.WriteLine("RELOAD");
                 DontDestroyOnLoad = true;
                 scene.Loader.Reload();
             }

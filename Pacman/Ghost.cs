@@ -10,6 +10,8 @@ namespace Pacman
     public class Ghost : Actor
     {
         private float frozenTimer;
+        private bool firstFrame;
+        private float animationTimer;
 
         public override void Create(Scene scene)
         {
@@ -18,7 +20,12 @@ namespace Pacman
             moving = true;
             base.Create(scene);
             sprite.TextureRect = new IntRect(36, 0, 18, 18);
-            scene.EatCandy += OnCandyEaten;
+            scene.Events.EatCandy += OnCandyEaten;
+        }
+
+        public override void Destroy(Scene scene)
+        {
+            scene.Events.EatCandy -= OnCandyEaten;
         }
 
         private void OnCandyEaten(Scene scene, int amount)
@@ -32,7 +39,7 @@ namespace Pacman
             {
                 if (frozenTimer <= 0.0f)
                 {
-                    scene.PublishLoseHealth(1);
+                    scene.Events.PublishLoseHealth(1);
                 }
                 Position = originalPosition;
             }
@@ -56,23 +63,49 @@ namespace Pacman
             return validMoves[r];
         }
 
+        private void Animation(float deltaTime)
+        {
+            animationTimer += deltaTime;
+            if (animationTimer > 1 / 5f)
+            {
+                firstFrame = !firstFrame;
+                animationTimer = 0;
+            }
+
+            if (frozenTimer > 0.0f)
+            {
+                if (firstFrame)
+                {
+                    sprite.TextureRect = new IntRect(36, 18, 18, 18);
+
+                }else if (!firstFrame)
+                {
+                    sprite.TextureRect = new IntRect(54, 18, 18, 18);
+                }
+            }
+
+            if (frozenTimer <= 0.0f)
+            {
+                if (firstFrame)
+                {
+                    sprite.TextureRect = new IntRect(36, 0, 18, 18);
+
+                }else if (!firstFrame)
+                {
+                    sprite.TextureRect = new IntRect(54, 0, 18, 18);
+                }
+            }
+        }
+
         public override void Update(Scene scene, float deltaTime)
         {
+            Animation(deltaTime);
             base.Update(scene, deltaTime);
             frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
         }
 
         public override void Render(RenderTarget target)
         {
-            if (frozenTimer > 0.0f)
-            {
-                sprite.TextureRect = new IntRect(36, 18, 18, 18);
-            }
-
-            if (frozenTimer <= 0.0f)
-            {
-                sprite.TextureRect = new IntRect(36, 0, 18, 18);
-            }
             base.Render(target);
         }
     }

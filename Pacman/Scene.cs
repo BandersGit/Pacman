@@ -6,30 +6,20 @@ using SFML.Window;
 
 namespace Pacman
 {
-    public delegate void ValueChangedEvent(Scene scene, int value);
-
     public class Scene
     {
-        public event ValueChangedEvent GainScore;
-        public event ValueChangedEvent LoseHealth;
-        public event ValueChangedEvent EatCandy;
-
+        
         private List<Entity> entities;
         public readonly SceneLoader Loader;
         public readonly AssetManager Assets;
-        private int scoreGained;
-        private int healthLost;
-        private int candiesEaten;
-
-        public void PublishGainScore(int amount) => scoreGained += amount;
-        public void PublishLoseHealth(int amount) => healthLost += amount;
-        public void PublishEatCandy(int amount) => candiesEaten += amount;
+        public readonly EventManager Events;
 
         public Scene()
         {
             entities = new List<Entity>();
             Loader = new SceneLoader();
             Assets = new AssetManager();
+            Events = new EventManager();
         }
 
         public void Spawn(Entity entity)
@@ -94,23 +84,7 @@ namespace Pacman
                 entity.Update(this, deltaTime);
             }
 
-            if (scoreGained != 0)
-            {
-                GainScore?.Invoke(this, scoreGained);
-                scoreGained = 0;
-            }
-
-            if (healthLost != 0)
-            {
-                LoseHealth?.Invoke(this, healthLost);
-                healthLost = 0;
-            }
-
-            if (candiesEaten != 0)
-            {
-                EatCandy?.Invoke(this, candiesEaten);
-                candiesEaten = 0;
-            }
+            Events.HandleEvents(this);
 
             for (int i = 0; i < entities.Count;)
             {
@@ -122,6 +96,8 @@ namespace Pacman
                 }else
                 i++;
             }
+
+            Events.LateHandleEvents(this);
         }
 
         public void RenderAll(RenderTarget target)

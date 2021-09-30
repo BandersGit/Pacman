@@ -12,15 +12,18 @@ namespace Pacman
     {
         public event ValueChangedEvent GainScore;
         public event ValueChangedEvent LoseHealth;
+        public event ValueChangedEvent EatCandy;
 
         private List<Entity> entities;
         public readonly SceneLoader Loader;
         public readonly AssetManager Assets;
         private int scoreGained;
         private int healthLost;
+        private int candiesEaten;
 
         public void PublishGainScore(int amount) => scoreGained += amount;
         public void PublishLoseHealth(int amount) => healthLost += amount;
+        public void PublishEatCandy(int amount) => candiesEaten += amount;
 
         public Scene()
         {
@@ -40,8 +43,12 @@ namespace Pacman
             for (int i = entities.Count - 1; i >= 0; i--)
             {
                 Entity entity = entities[i];
-                entities.RemoveAt(i);
-                entity.Destroy(this);
+
+                if (!entity.DontDestroyOnLoad)
+                {
+                    entities.RemoveAt(i);
+                    entity.Destroy(this);
+                }
             }
         }
 
@@ -97,6 +104,12 @@ namespace Pacman
             {
                 LoseHealth?.Invoke(this, healthLost);
                 healthLost = 0;
+            }
+
+            if (candiesEaten != 0)
+            {
+                EatCandy?.Invoke(this, candiesEaten);
+                candiesEaten = 0;
             }
 
             for (int i = 0; i < entities.Count;)

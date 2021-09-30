@@ -50,8 +50,11 @@ namespace Pacman
                 }
             }
 
-            GUI gui = new GUI();
-            scene.Spawn(gui);
+            if (!scene.FindByType<GUI>(out _))
+            {
+                GUI gui = new GUI();
+                scene.Spawn(gui);
+            }
             
             currentScene = nextScene;
             nextScene = "";

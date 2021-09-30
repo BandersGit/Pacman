@@ -34,6 +34,13 @@ namespace Pacman
         {
             currentScore += amount;
             scoreText.DisplayedString = $"Score: {currentScore}";
+
+            if (!scene.FindByType<Coin>(out _))
+            {
+                System.Console.WriteLine("RELOAD");
+                DontDestroyOnLoad = true;
+                scene.Loader.Reload();
+            }
         }
 
         private void OnLoseHealth(Scene scene, int amount)
@@ -41,6 +48,7 @@ namespace Pacman
             currentHealth -= amount;
             if (currentHealth <= 0)
             {
+                DontDestroyOnLoad = false;
                 scene.Loader.Reload();
             }
         }

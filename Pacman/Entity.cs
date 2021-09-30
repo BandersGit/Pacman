@@ -27,7 +27,7 @@ namespace Pacman
 
         public virtual bool Solid => false;
 
-        protected void CollideWith(Scene scene, Entity other)
+        protected virtual void CollideWith(Scene scene, Entity other)
         {
 
         }

@@ -18,6 +18,15 @@ namespace Pacman
             sprite.TextureRect = new IntRect(36, 0, 18, 18);
         }
 
+        protected override void CollideWith(Scene scene, Entity e)
+        {
+            if (e is Pacman)
+            {
+                scene.PublishLoseHealth(1);
+                Position = originalPosition;
+            }
+        }
+
         protected override int PickDirection(Scene scene)
         {
             List<int> validMoves = new List<int>();

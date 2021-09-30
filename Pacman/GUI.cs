@@ -25,6 +25,24 @@ namespace Pacman
             scoreText.FillColor = Color.Black;
             currentHealth = maxHealth;
             base.Create(scene);
+
+            scene.LoseHealth += OnLoseHealth;
+            scene.GainScore += OnGainScore;
+        }
+
+        private void OnGainScore(Scene scene, int amount)
+        {
+            currentScore += amount;
+            scoreText.DisplayedString = $"Score: {currentScore}";
+        }
+
+        private void OnLoseHealth(Scene scene, int amount)
+        {
+            currentHealth -= amount;
+            if (currentHealth <= 0)
+            {
+                scene.Loader.Reload();
+            }
         }
 
         public override void Render(RenderTarget target)
@@ -41,7 +59,7 @@ namespace Pacman
                 base.Render(target);
                 sprite.Position += new Vector2f(18, 0);
             }
-
+            
             scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
             target.Draw(scoreText);
         }

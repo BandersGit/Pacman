@@ -32,6 +32,11 @@ namespace Pacman
                 candiesEaten = 0;
             }
 
+            if (scoreGained != 0)
+            {
+                GainScore?.Invoke(scene, scoreGained);
+                scoreGained = 0;
+            }
         }
     }
 }

@@ -59,6 +59,13 @@ namespace Pacman
             originalSpeed = speed;
         }
 
+        protected void ResetActor()
+        {
+            wasAligned = false;
+            Position = originalPosition;
+            speed = originalSpeed;
+        }
+
         public override void Update(Scene scene, float deltaTime)
         {
             base.Update(scene, deltaTime);

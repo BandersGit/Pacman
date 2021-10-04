@@ -21,7 +21,9 @@ namespace Pacman
                 while (window.IsOpen)
                 {
                     window.DispatchEvents();
+                    
                     float deltaTime = clock.Restart().AsSeconds();
+                    if (deltaTime > 0.01f) deltaTime = 0.01f;
 
                     scene.UpdateAll(deltaTime);
 

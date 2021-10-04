@@ -31,10 +31,7 @@ namespace Pacman
                 EatCandy?.Invoke(scene, candiesEaten);
                 candiesEaten = 0;
             }
-        }
 
-        public void LateHandleEvents(Scene scene)
-        {
             if (scoreGained != 0)
             {
                 GainScore?.Invoke(scene, scoreGained);

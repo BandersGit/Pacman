@@ -62,7 +62,7 @@ namespace Pacman
         {
             foreach (Entity entity in entities)
             {
-                if (entity is T typed)
+                if (entity is T typed && !entity.Dead)
                 {
                     found = typed;
                     return true;
@@ -95,8 +95,6 @@ namespace Pacman
                 }else
                 i++;
             }
-
-            Events.LateHandleEvents(this);
         }
 
         public void RenderAll(RenderTarget target)

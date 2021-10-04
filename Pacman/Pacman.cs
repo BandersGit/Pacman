@@ -19,7 +19,7 @@ namespace Pacman
 
         private void OnLoseHealth(Scene scene, int amount)
         {
-            Position = originalPosition;
+            ResetActor();
         }
 
         public override void Destroy(Scene scene)

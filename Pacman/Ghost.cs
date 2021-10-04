@@ -37,8 +37,13 @@ namespace Pacman
                 if (frozenTimer <= 0.0f)
                 {
                     scene.Events.PublishLoseHealth(1);
+                }else
+                {
+                    scene.Events.PublishGainScore(200);
                 }
-                Position = originalPosition;
+                
+                ResetActor();
+                
             }
         }
 

@@ -12,7 +12,7 @@ namespace Pacman
         private readonly Dictionary<char, Func<Entity>> loaders;
         private string currentScene = "", nextScene = "";
 
-        public SceneLoader()
+        public SceneLoader()    //links a specific character to an entity creation
         {
             loaders = new Dictionary<char, Func<Entity>>
             {
@@ -29,8 +29,8 @@ namespace Pacman
 
         public void Reload() => nextScene = currentScene;
 
-        public void HandleSceneLoad(Scene scene)
-        {
+        public void HandleSceneLoad(Scene scene)    //Parses the text scene file to find specific characters and creates 
+        {                                           //them based on the positions int the text file
             if (nextScene == "") return;
             scene.Clear();
             

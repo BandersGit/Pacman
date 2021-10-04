@@ -4,7 +4,7 @@ namespace Pacman
 {
     public delegate void ValueChangedEvent(Scene scene, int value);
 
-    public class EventManager
+    public class EventManager //Creates and handles what happens with the events and what subscribers can see and use
     {
         public event ValueChangedEvent GainScore;
         public event ValueChangedEvent LoseHealth;
@@ -33,7 +33,7 @@ namespace Pacman
             }
         }
 
-        public void LateHandleEvents(Scene scene)
+        public void LateHandleEvents(Scene scene) //To make the game reset when the last coin is picked up it needs to check it after the "Dead" check
         {
             if (scoreGained != 0)
             {

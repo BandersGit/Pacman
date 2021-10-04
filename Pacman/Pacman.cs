@@ -14,7 +14,7 @@ namespace Pacman
             speed = 100.0f;
             base.Create(scene);
             sprite.TextureRect = new IntRect(0, 0, 18, 18);
-            scene.Events.LoseHealth += OnLoseHealth;
+            scene.Events.LoseHealth += OnLoseHealth; //Runs the method when the subscribed event is activated
         }
 
         private void OnLoseHealth(Scene scene, int amount)
@@ -27,8 +27,8 @@ namespace Pacman
             scene.Events.LoseHealth -= OnLoseHealth;
         }
 
-        protected override int PickDirection(Scene scene)
-        {
+        protected override int PickDirection(Scene scene) //Uses keyboard input to determine a int value that gets sent to
+        {                                                 //A check if it can move int that direction and moves it if it is allowed
             int dir = direction;
 
             if (Keyboard.IsKeyPressed(Right))
@@ -55,8 +55,8 @@ namespace Pacman
             return direction;
         }
 
-        private void Animation(float deltaTime)
-        {
+        private void Animation(float deltaTime) //Uses deltaTime to time the frame switches and uses the same int value that checks the movement
+        {                                       //in order to know the orientation of the sprite that will be animated
             animationTimer += deltaTime;
             if (animationTimer > 1 / 10f)
             {

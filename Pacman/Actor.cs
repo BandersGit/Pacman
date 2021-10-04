@@ -30,7 +30,7 @@ namespace Pacman
             return !scene.FindInstersects(rect).Any(e => e.Solid);
         }
 
-        protected static Vector2f ToVector(int dir)
+        protected static Vector2f ToVector(int dir) //Chooses the direction of the movement based on an int value
         {
             switch (dir)
             {

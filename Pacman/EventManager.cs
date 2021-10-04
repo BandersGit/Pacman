@@ -4,7 +4,7 @@ namespace Pacman
 {
     public delegate void ValueChangedEvent(Scene scene, int value);
 
-    public class EventManager
+    public class EventManager //Creates and handles what happens with the events and what subscribers can see and use
     {
         public event ValueChangedEvent GainScore;
         public event ValueChangedEvent LoseHealth;
@@ -32,11 +32,6 @@ namespace Pacman
                 candiesEaten = 0;
             }
 
-            if (scoreGained != 0)
-            {
-                GainScore?.Invoke(scene, scoreGained);
-                scoreGained = 0;
-            }
         }
     }
 }

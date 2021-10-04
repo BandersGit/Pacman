@@ -23,8 +23,8 @@ namespace Pacman
             scoreText.DisplayedString = $"Score: {currentScore}";
             scoreText.FillColor = Color.Black;
             currentHealth = maxHealth;
-            scene.Events.LoseHealth += OnLoseHealth;
-            scene.Events.GainScore += OnGainScore;
+            scene.Events.LoseHealth += OnLoseHealth;//Runs these local methods when the subscribed events happen
+            scene.Events.GainScore += OnGainScore;  //
             base.Create(scene);
         }
 
@@ -37,7 +37,7 @@ namespace Pacman
         private void OnGainScore(Scene scene, int amount)
         {
             currentScore += amount;
-            scoreText.DisplayedString = $"Score: {currentScore}";
+            scoreText.DisplayedString = $"Score: {currentScore}"; //Displays the string every score gain to make it change in the GUI
 
             if (!scene.FindByType<Coin>(out _))
             {

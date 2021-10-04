@@ -5,7 +5,7 @@ using SFML.Graphics;
 
 namespace Pacman
 {
-    public class AssetManager
+    public class AssetManager   //Loads the textures and the fonts for the game entities and keeps track with dictionaries
     {
         public static readonly string AssetPath = "assets";
         private readonly Dictionary<string, Texture> textures;

@@ -17,7 +17,7 @@ namespace Pacman
             moving = true;
             base.Create(scene);
             sprite.TextureRect = new IntRect(36, 0, 18, 18);
-            scene.Events.EatCandy += OnCandyEaten;
+            scene.Events.EatCandy += OnCandyEaten; //Runs the method when the subscribed event is activated
         }
 
         public override void Destroy(Scene scene)
@@ -30,7 +30,7 @@ namespace Pacman
             frozenTimer = 5.0f;
         }
 
-        protected override void CollideWith(Scene scene, Entity e)
+        protected override void CollideWith(Scene scene, Entity e) //If pacman collides with a ghost that is not "frozen" he will lose health
         {
             if (e is Pacman)
             {
@@ -65,8 +65,8 @@ namespace Pacman
             return validMoves[r];
         }
 
-        private void Animation(float deltaTime)
-        {
+        private void Animation(float deltaTime) //Similar to Platformer, uses deltaTime to switch between animation frames
+        {                                       //Would like to call the method in Render but then there is no acess to deltaTime
             animationTimer += deltaTime;
             if (animationTimer > 1 / 5f)
             {

@@ -1,10 +1,10 @@
 using System;
 using SFML.Graphics;
 using SFML.Window;
+using static SFML.Window.Keyboard.Key;
 
 namespace Pacman
 {
-    using static SFML.Window.Keyboard.Key;
     public class Pacman : Actor
     {
         private bool firstFrame;
